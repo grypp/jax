@@ -129,10 +129,10 @@ with ir.Context() as ctx, ir.Location.unknown():
               a_slice, barrier_group, a_tma_desc,
               coordinates=[c(0), arith.MulIOp(c(lhs_tile_shape[1]), step)],
               mbarId=step)
-          for b_start in (0, 64):
+          for b_start in (0, 32):
             b_slice = memref.SubViewOp(
                 ir.Type.parse("memref<64x64xf16, strided<[128, 1], offset: ?>, 3>"),
-                b_smem, [step], [], [], [DYNAMIC, 0, b_start], [1, *rhs_tma_shape], [1, 1, 1])
+                b_smem, [c(0)], [], [], [DYNAMIC, 0, b_start], [1, *rhs_tma_shape], [1, 1, 1])
             nvgpu.TmaAsyncLoadOp(
                 b_slice, barrier_group, b_tma_desc,
                 coordinates=[arith.MulIOp(c(lhs_tile_shape[1]), step), c(b_start)],
