@@ -269,6 +269,11 @@ cc_library(
     deps = [
         "@llvm-project//mlir:CAPIIRHeaders",
         "@llvm-project//mlir:SCFDialect",
+        "@llvm-project//mlir:MemRefTransforms",
+        "@llvm-project//mlir:NVVMTarget",
+        "@llvm-project//mlir:GPUToLLVMIRTranslation",
+        "@llvm-project//mlir:LLVMToLLVMIRTranslation",
+        "@llvm-project//mlir:NVVMToLLVMIRTranslation",
     ],
     alwayslink = 1,
 )

@@ -31,6 +31,7 @@ PYBIND11_MODULE(_site_initialize_0, m) {
     REGISTER_DIALECT(gpu);
     REGISTER_DIALECT(nvgpu);
     REGISTER_DIALECT(nvvm);
+    jaxMlirRegisterInterfaceExternalModels(registry);
     mlirRegisterGPUPasses();
     mlirRegisterMemRefPasses();
     mlirRegisterConversionPasses();

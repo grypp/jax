@@ -17,9 +17,26 @@ limitations under the License.
 
 #include "mlir/CAPI/Registration.h"
 #include "mlir/Dialect/SCF/IR/SCF.h"
+#include "mlir/Target/LLVM/NVVM/Target.h"
+#include "mlir/Target/LLVMIR/Dialect/GPU/GPUToLLVMIRTranslation.h"
+#include "mlir/Target/LLVMIR/Dialect/LLVMIR/LLVMToLLVMIRTranslation.h"
+#include "mlir/Target/LLVMIR/Dialect/NVVM/NVVMToLLVMIRTranslation.h"
+#include "mlir/Dialect/MemRef/Transforms/Passes.h"
 
 extern "C" {
 
 MLIR_DEFINE_CAPI_DIALECT_REGISTRATION(SCF, scf, mlir::scf::SCFDialect)
+
+void mlirRegisterMemRefPasses() {
+  mlir::memref::registerMemRefPasses();
+}
+
+void jaxMlirRegisterInterfaceExternalModels(MlirDialectRegistry registry) {
+  mlir::NVVM::registerNVVMTargetInterfaceExternalModels(*unwrap(registry));
+  mlir::gpu::registerOffloadingLLVMTranslationInterfaceExternalModels(*unwrap(registry));
+  mlir::registerGPUDialectTranslation(*unwrap(registry));
+  mlir::registerLLVMDialectTranslation(*unwrap(registry));
+  mlir::registerNVVMDialectTranslation(*unwrap(registry));
+}
 
 }

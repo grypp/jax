@@ -24,6 +24,8 @@ extern "C" {
 #endif
 
 MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(SCF, scf);
+MLIR_CAPI_EXPORTED void mlirRegisterMemRefPasses();
+MLIR_CAPI_EXPORTED void jaxMlirRegisterInterfaceExternalModels(MlirDialectRegistry registry);
 
 #ifdef __cplusplus
 }
